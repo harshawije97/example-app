@@ -1,5 +1,13 @@
+import { Link } from "expo-router";
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 type SpritesDefault = {
   back_default: string;
@@ -72,56 +80,69 @@ export default function Index() {
     >
       {pokemon.map((pokemon) => {
         return (
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 5,
-              padding: 10,
-              marginBottom: 10,
-              borderRadius: 10,
-              backgroundColor: "#b7efe4",
-            }}
-            key={pokemon.id}
-          >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                justifyContent: "center",
-                gap: 10,
-              }}
-            >
-              <Image
-                style={styles.logo}
-                source={{ uri: pokemon.sprites.front_default }}
-              />
-              <Image
-                style={styles.logo}
-                source={{ uri: pokemon.sprites.back_default }}
-              />
-            </View>
+          <Pressable key={pokemon.id}>
             <View
               style={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
-                width: "100%",
+                gap: 5,
+                padding: 10,
+                marginBottom: 10,
+                borderRadius: 10,
+                backgroundColor: "#b7efe4",
               }}
+              key={pokemon.id}
             >
-              <Text
+              <View
                 style={{
-                  color: "#00d3f3",
-                  fontWeight: "500",
-                  fontSize: 20,
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "100%",
+                  justifyContent: "center",
+                  gap: 10,
                 }}
               >
-                {pokemon.name}
-              </Text>
-              <Text>{pokemon.height}</Text>
+                <Image
+                  style={styles.logo}
+                  source={{ uri: pokemon.sprites.front_default }}
+                />
+                <Image
+                  style={styles.logo}
+                  source={{ uri: pokemon.sprites.back_default }}
+                />
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Link
+                  href={{
+                    pathname: "/details",
+                    params: { name: pokemon.name },
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#00d3f3",
+                      fontWeight: "500",
+                      fontSize: 20,
+                    }}
+                  >
+                    {pokemon.name}
+                  </Text>
+                </Link>
+                <Text
+                  style={{ color: "black", fontWeight: "500", fontSize: 15 }}
+                >
+                  {pokemon.height}
+                </Text>
+              </View>
             </View>
-          </View>
+          </Pressable>
         );
       })}
     </ScrollView>
